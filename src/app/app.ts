@@ -1,11 +1,24 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service'; 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  standalone: false,
-  styleUrl: './app.css'
+  styleUrls: ['./app.css'],
+  standalone: false
 })
-export class App {
-  protected readonly title = signal('bolsa-empleo');
+export class AppComponent implements OnInit {
+  title = 'bolsa-empleo';
+  usuarioLogueado: any = null;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    // Al arrancar, verificamos si ya inició sesión antes
+    this.usuarioLogueado = this.authService.getUsuarioActual();
+  }
+
+  salir() {
+    this.authService.cerrarSesion();
+  }
 }

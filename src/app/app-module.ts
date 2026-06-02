@@ -1,20 +1,21 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
+import { HttpClientModule } from '@angular/common/http';
+import { JobsModule } from './modules/jobs/jobs-module'; 
+import { AuthModule } from './modules/auth/auth-module'; // <-- NUEVO IMPORT
+import { AppComponent } from './app'; 
 
 @NgModule({
   declarations: [
-    App
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    JobsModule,
+    AuthModule // <-- LO INYECTAMOS AQUÍ
   ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-  ],
-  bootstrap: [App]
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
