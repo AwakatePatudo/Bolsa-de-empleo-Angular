@@ -1,0 +1,1 @@
+import{Ab as i,Ca as t,H as r,Vb as m}from"./chunk-N5P4SYZM.js";var e=class o{static \u0275fac=function(f){return new(f||o)};static \u0275mod=t({type:o});static \u0275inj=r({imports:[i,m]})};export{e as JobsModule};
