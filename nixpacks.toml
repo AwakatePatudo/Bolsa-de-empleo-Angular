@@ -4,7 +4,7 @@ providers = ["node"]
 nixPkgs = ["nodejs"]
 
 [phases.build]
-cmds = ["npm install", "npx ng build"]
+cmds = ["npm install", "NG_DISABLE_VERSION_CHECK=1 npx ng build"]
 
 [start]
 cmd = "npx serve -s dist/bolsa-empleo"
