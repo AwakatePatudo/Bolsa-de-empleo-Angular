@@ -2,4 +2,4 @@
 cmds = ["npm run build"]
 
 [start]
-cmd = "npx serve -s dist/BolsaEmpleo/browser"
+cmd = "npx serve -s dist/bolsa-empleo/browser"
