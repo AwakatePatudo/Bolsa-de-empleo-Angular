@@ -1,10 +1,10 @@
-providers = [] 
+providers = []
 
 [phases.setup]
-nixPkgs = ["nodejs"] 
+nixPkgs = ["nodejs"]
 
 [phases.build]
-cmds = ["npm ci", "npm run build"] 
+cmds = ["npm ci", "npm run build"]
 
 [start]
 cmd = "npx serve -s dist/bolsa-empleo"
