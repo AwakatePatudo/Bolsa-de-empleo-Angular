@@ -1,7 +1,8 @@
-providers = []
+[providers]
+node = {}
 
 [phases.setup]
-nixPkgs = ["nodejs_22"]
+nixPkgs = []
 
 [phases.build]
 cmds = ["npm install", "npx ng build"]
