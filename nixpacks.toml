@@ -4,7 +4,7 @@ providers = []
 nixPkgs = ["nodejs"]
 
 [phases.build]
-cmds = ["npm ci", "npm run build"]
+cmds = ["npm install", "npx ng build"]
 
 [start]
 cmd = "npx serve -s dist/bolsa-empleo"
