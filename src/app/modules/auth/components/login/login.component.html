@@ -1,20 +1,84 @@
-<div style="max-width: 400px; margin: 50px auto; padding: 30px; border: 1px solid #ccc; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); font-family: Arial, sans-serif;">
-<h2 style="text-align: center; color: #0056b3; margin-top: 0;">Ingreso al Sistema - Unipaz</h2>
-<p style="text-align: center; color: #666; font-size: 14px;">Bolsa de Empleo Multiusuario</p>
+<div style="font-family: Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; background-color: #f4f6f9;">
 
-<form (ngSubmit)="enviarLogin()" style="display: grid; gap: 15px;">
-    <div>
-    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Correo Institucional:</label>
-    <input type="email" [(ngModel)]="credenciales.correo" name="correo" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;" placeholder="usuario@unipaz.edu.co" required>
+  <header style="background-color: #0056b3; color: white; padding: 0 30px 0 0; display: flex; justify-content: space-between; align-items: center; height: 70px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0;">
+  <div routerLink="/" style="display: flex; align-items: center; gap: 20px; height: 100%; cursor: pointer;" title="Volver al inicio">
+  
+  <div style="background-color: white; height: 100%; display: flex; align-items: center; padding: 0 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.05);">
+    <img src="/LOGO-UNIPAZ-500x500px.png" alt="Logo UNIPAZ" style="height: 55px; width: auto; object-fit: contain;">
+  </div>
+  
+  <h1 style="margin: 0; font-size: 20px; font-weight: bold; display: flex; align-items: center;">
+    Bolsa de Empleo UNIPAZ
+  </h1>
+
+</div>
+
+    <nav style="display: flex; gap: 12px;">
+      <button routerLink="/auth/register-student" style="background-color: #28a745; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#218838'" onmouseout="this.style.background='#28a745'">
+        Registrarse
+      </button>
+    </nav>
+  </header>
+
+  <main style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 20px;">
+    <div style="max-width: 450px; width: 100%; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); box-sizing: border-box;">
+      
+      <h2 style="font-size: 26px; color: #222; margin: 0 0 10px 0; font-weight: 800; text-align: center;">
+        Ingreso al Sistema
+      </h2>
+      <p style="font-size: 14px; color: #666; text-align: center; margin: 0 0 25px 0;">
+        Bolsa de Empleo Multiusuario - UNIPAZ
+      </p>
+
+      <div *ngIf="errorMensaje" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; text-align: center; border: 1px solid #f5c6cb; font-weight: 500;">
+        {{ errorMensaje }}
+      </div>
+
+      <form (ngSubmit)="enviarLogin()" #loginForm="ngForm" novalidate>
+        
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 14px; color: #333; font-weight: bold; margin-bottom: 8px;">
+            Correo Institucional:
+          </label>
+          <input type="email" name="correo" [(ngModel)]="credenciales.correo" required placeholder="ejemplo@unipaz.edu.co" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; background-color: #f8fafc;">
+        </div>
+
+        <div style="margin-bottom: 30px;">
+          <label style="display: block; font-size: 14px; color: #333; font-weight: bold; margin-bottom: 8px;">
+            Contraseña:
+          </label>
+          <div style="position: relative; display: flex; align-items: center;">
+            <input [type]="ocultarContrasena ? 'password' : 'text'" name="contrasena" [(ngModel)]="credenciales.contrasena" required placeholder="••••••••" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; background-color: #f8fafc;">
+            
+            <button type="button" (click)="conmutarVisibilidad()" style="position: absolute; right: 12px; background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #64748b;" title="Alternar visibilidad">
+              
+              <svg *ngIf="ocultarContrasena" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+
+              <svg *ngIf="!ocultarContrasena" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+              </svg>
+
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" style="width: 100%; background-color: #0056b3; color: white; border: none; padding: 14px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#004085'" onmouseout="this.style.background='#0056b3'">
+          Ingresar Plataforma
+        </button>
+
+      </form>
+
     </div>
+  </main>
 
-    <div>
-    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Contraseña:</label>
-    <input type="password" [(ngModel)]="credenciales.contrasena" name="contrasena" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;" placeholder="••••••••" required>
+  <footer style="background-color: #1e293b; color: #94a3b8; text-align: center; padding: 20px; font-size: 13px; border-top: 1px solid #334155; flex-shrink: 0;">
+    <div style="max-width: 850px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <span>© 2026 Instituto Universitario de la Paz. Todos los derechos reservados.</span>
+      <span style="font-weight: bold; color: #cbd5e1;">Barrancabermeja, Santander, Colombia</span>
     </div>
+  </footer>
 
-    <button type="submit" style="background-color: #0056b3; color: white; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 16px;">
-    Ingresar Plataforma
-    </button>
-</form>
 </div>

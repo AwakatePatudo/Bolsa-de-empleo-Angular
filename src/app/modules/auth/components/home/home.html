@@ -1,0 +1,114 @@
+<div style="font-family: Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; background-color: #f4f6f9;">
+
+<header style="background-color: #0056b3; color: white; padding: 0 30px 0 0; display: flex; justify-content: space-between; align-items: center; height: 70px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 20px; height: 100%;">
+    <div style="background-color: white; height: 100%; display: flex; align-items: center; padding: 0 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.05);">
+        <img src="/LOGO-UNIPAZ-500x500px.png" alt="Logo UNIPAZ" style="height: 55px; width: auto; object-fit: contain;">
+    </div>
+    <h1 style="margin: 0; font-size: 20px; font-weight: bold; display: flex; align-items: center;">
+        Bolsa de Empleo UNIPAZ
+    </h1>
+    </div>
+
+    <nav style="display: flex; gap: 12px;">
+    <button routerLink="/auth/login" style="background-color: transparent; color: white; border: 1px solid white; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">
+        Iniciar Sesión
+    </button>
+    <button routerLink="/auth/register-student" style="background-color: #28a745; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#218838'" onmouseout="this.style.background='#28a745'">
+        Registrarse
+    </button>
+    </nav>
+</header>
+
+<main style="flex: 1; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; gap: 35px;">
+    
+    <div style="max-width: 850px; width: 100%; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; box-sizing: border-box;">
+    <span style="background-color: #e1f0ff; color: #0056b3; padding: 6px 18px; border-radius: 20px; font-size: 14px; font-weight: bold; display: inline-block; margin-bottom: 15px;">
+        ¡Conectando el talento de UNIPAZ!
+    </span>
+    <h2 style="font-size: 36px; color: #222; margin: 10px 0 15px 0; font-weight: 800; line-height: 1.2;">
+        Encuentra tu próximo desafío profesional
+    </h2>
+    <p style="font-size: 17px; color: #666; line-height: 1.6; margin: 0;">
+        La plataforma oficial del Instituto Universitario de la Paz para que estudiantes, egresados y las mejores empresas de la región gestionen ofertas laborales de forma directa, rápida y segura.
+    </p>
+    </div>
+
+    <div style="display: flex; justify-content: space-around; align-items: center; max-width: 850px; width: 100%; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); box-sizing: border-box;">
+    
+    <div style="text-align: center; flex: 1;">
+        <div style="font-size: 32px; font-weight: bold; color: #0056b3;">{{ cantEstudiantes }}</div>
+        <div style="font-size: 13px; color: #777; font-weight: bold; text-transform: uppercase; margin-top: 5px;">Estudiantes Activos</div>
+    </div>
+    
+    <div style="text-align: center; flex: 1; border-left: 1px solid #eee; border-right: 1px solid #eee; padding: 0 20px;">
+        <div style="font-size: 32px; font-weight: bold; color: #ffc107;">{{ cantEmpresas }}</div>
+        <div style="font-size: 13px; color: #777; font-weight: bold; text-transform: uppercase; margin-top: 5px;">Empresas Aliadas</div>
+    </div>
+    
+    <div style="text-align: center; flex: 1;">
+        <div style="font-size: 32px; font-weight: bold; color: #008E40;">{{ cantVacantes }}</div>
+        <div style="font-size: 13px; color: #777; font-weight: bold; text-transform: uppercase; margin-top: 5px;">Vacantes Disponibles</div>
+    </div>
+
+    </div>
+
+    <div style="max-width: 850px; width: 100%; box-sizing: border-box;">
+    <h3 style="font-size: 20px; color: #222; margin: 0 0 15px 0; font-weight: bold; text-align: left;">
+        Últimas ofertas de empleo añadidas
+    </h3>
+    
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div *ngFor="let job of vacantesRecientes" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #0056b3;">
+        <div>
+            <h4 style="margin: 0 0 5px 0; color: #333; font-size: 17px; font-weight: bold;">{{ job.Titulo }}</h4>
+            <span style="color: #777; font-size: 14px; font-weight: 500;">{{ job.Empresa }}</span>
+        </div>
+        <div style="text-align: right; display: flex; flex-direction: column; gap: 5px;">
+            <span style="color: #28a745; font-weight: bold; font-size: 15px;">{{ job.Sueldo | currency:'COP':'symbol':'1.0-0' }}</span>
+            <span routerLink="/auth/login" style="color: #0056b3; font-size: 13px; font-weight: bold; cursor: pointer; text-decoration: underline;">Ver oferta</span>
+        </div>
+        </div>
+
+        <div *ngIf="vacantesRecientes.length === 0" style="background: white; padding: 20px; border-radius: 8px; text-align: center; color: #888; font-style: italic;">
+        No hay ofertas de empleo publicadas en este momento.
+        </div>
+    </div>
+    </div>
+
+    <div style="display: flex; gap: 25px; max-width: 850px; width: 100%; box-sizing: border-box;">
+    <div style="flex: 1; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-top: 5px solid #0056b3;">
+        <h3 style="margin: 0 0 12px 0; color: #0056b3; font-size: 17px; font-weight: bold;">Para Estudiantes y Egresados</h3>
+        <p style="color: #666; font-size: 14px; line-height: 1.6; margin: 0;">
+        Potencia tu perfil laboral postulándote a ofertas exclusivas, gestiona tu hoja de vida actualizada y haz seguimiento a tus postulaciones.
+        </p>
+    </div>
+    <div style="flex: 1; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-top: 5px solid #28a745;">
+        <h3 style="margin: 0 0 12px 0; color: #28a745; font-size: 17px; font-weight: bold;">Para Empresas Aliadas</h3>
+        <p style="color: #666; font-size: 14px; line-height: 1.6; margin: 0;">
+        Publica tus vacantes de manera estructurada, accede a hojas de vida calificadas y optimiza tus procesos de selección de manera rápida.
+        </p>
+    </div>
+    </div>
+
+    <div style="max-width: 850px; width: 100%; text-align: center; margin-top: 10px;">
+    <p style="font-size: 12px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
+        Empresas que confían en el talento UNIPAZ
+    </p>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 45px; flex-wrap: wrap;">
+        <img src="/logo-ecopetro.png" alt="Ecopetrol" style="height: 40px; width: auto; filter: grayscale(100%); opacity: 0.6; object-fit: contain;">
+        <img src="/logo-alcaldi.png" alt="Alcaldía Bca" style="height: 42px; width: auto; filter: grayscale(100%); opacity: 0.6; object-fit: contain;">
+        <img src="/logo-multins.png" alt="Multinsa" style="height: 45px; width: auto; filter: grayscale(100%); opacity: 0.6; object-fit: contain;">
+    </div>
+    </div>
+
+</main>
+
+<footer style="background-color: #1e293b; color: #94a3b8; text-align: center; padding: 20px; font-size: 13px; border-top: 1px solid #334155; flex-shrink: 0;">
+    <div style="max-width: 850px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <span>© 2026 Instituto Universitario de la Paz. Todos los derechos reservados.</span>
+    <span style="font-weight: bold; color: #cbd5e1;">Barrancabermeja, Santander, Colombia</span>
+    </div>
+</footer>
+
+</div>  

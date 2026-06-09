@@ -1,0 +1,131 @@
+<div style="font-family: Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; background-color: #f4f6f9;">
+
+  <header style="background-color: #0056b3; display: flex; align-items: stretch; height: 70px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden;">
+    <div style="background-color: #ffffff; padding: 0 25px; display: flex; align-items: center; justify-content: center; border-right: 1px solid #e0e0e0; cursor: pointer;" 
+        (click)="navegarAlHome()">
+      <img src="/LOGO-UNIPAZ-500x500px.png" alt="Logo UNIPAZ" style="height: 55px; width: auto; object-fit: contain;">
+    </div>
+    <div style="flex: 1; display: flex; justify-content: space-between; align-items: center; padding: 0 30px;">
+      <h1 style="margin: 0; font-size: 22px; font-weight: bold; color: white;">Bolsa de Empleo UNIPAZ</h1>
+      <button (click)="navegarAlLogin()" style="background-color: transparent; color: white; border: 2px solid rgba(255,255,255,0.8); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.background='white'; this.style.color='#0056b3';" onmouseout="this.style.background='transparent'; this.style.color='white';">
+        Ya tengo cuenta
+      </button>
+    </div>
+  </header>
+
+  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 30px 20px;">
+    <div style="max-width: 550px; width: 100%; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    
+      <div style="display: flex; background-color: #f1f3f5; padding: 5px; border-radius: 8px; margin-bottom: 25px;">
+        <button type="button" style="flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: default; background-color: #0056b3; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          Estudiantes
+        </button>
+        <button type="button" (click)="navegarAEmpresas()" style="flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; background-color: transparent; color: #495057; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.05)';" onmouseout="this.style.backgroundColor='transparent';">
+          Empresas
+        </button>
+      </div>
+
+      <h2 style="text-align: center; color: #333; margin-bottom: 5px;">Registro de Estudiantes</h2>
+      <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 25px;">Exclusivo para la facultad de Ingeniería Informática</p>
+
+      <form [formGroup]="registroForm" (ngSubmit)="enviarRegistro()" autocomplete="off">
+          
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Nombres y Apellidos *</label>
+          <input type="text" formControlName="nombres" (input)="soloLetras('nombres')" placeholder="Ej. Juan Pérez" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">    
+          @if (f['nombres']?.touched && f['nombres']?.errors?.['required']) {
+            <small style="color: red; display: block; margin-top: 5px;">El nombre es obligatorio.</small>
+          }
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Tipo de Doc. *</label>
+            <select formControlName="tipoDocumento" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; background: white;">
+              <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+              <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Número de Doc. *</label>
+            <input type="text" formControlName="numeroDocumento" (input)="soloNumeros('numeroDocumento')" placeholder="Solo números" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+            @if (f['numeroDocumento']?.touched && f['numeroDocumento']?.errors?.['required']) {
+              <small style="color: red; display: block; margin-top: 5px;">El documento es requerido.</small>
+            }
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Fecha Nacimiento *</label>
+            <input type="date" formControlName="fechaNacimiento" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+            @if (f['fechaNacimiento']?.touched && f['fechaNacimiento']?.errors?.['required']) {
+              <small style="color: red; display: block; margin-top: 5px;">La fecha es obligatoria.</small>
+            }
+          </div>
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Teléfono Celular *</label>
+            <input type="text" formControlName="telefono" maxlength="10" (input)="soloNumeros('telefono')" placeholder="3001234567" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+            @if (f['telefono']?.touched && f['telefono']?.errors) {
+              <small style="color: red; display: block; margin-top: 5px;">Número celular requerido (10 dígitos).</small>
+            }
+          </div>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px; color: #777; font-weight: bold; font-size: 14px;">Programa Académico</label>
+          <input type="text" value="Ingeniería Informática" readonly style="width: 100%; padding: 10px; border: 1px solid #dcdcdc; border-radius: 6px; box-sizing: border-box; background-color: #f1f3f5; color: #495057; font-weight: bold; cursor: not-allowed;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Correo Institucional *</label>
+          <input type="email" formControlName="correo" placeholder="usuario@unipaz.edu.co" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+          @if (f['correo']?.touched && f['correo']?.errors) {
+            <small style="color: red; display: block; margin-top: 5px;">Debe ser un correo válido.</small>
+          }
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Contraseña *</label>
+            <div style="position: relative; display: flex; align-items: center;">
+              <input [type]="verContrasena ? 'text' : 'password'" formControlName="contrasena" placeholder="Mínimo 8 carac." style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+              <button type="button" (click)="verContrasena = !verContrasena" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #666; padding: 0;">
+                @if (verContrasena) {
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
+                } @else {
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                }
+              </button>
+            </div>
+          </div>
+
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 5px; color: #555; font-weight: bold; font-size: 14px;">Confirmar Contraseña *</label>
+            <div style="position: relative; display: flex; align-items: center;">
+              <input [type]="verConfirmarContrasena ? 'text' : 'password'" formControlName="confirmarContrasena" placeholder="Repita la contraseña" style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+              <button type="button" (click)="verConfirmarContrasena = !verConfirmarContrasena" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #666; padding: 0;">
+                @if (verConfirmarContrasena) {
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
+                } @else {
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                }
+              </button>
+            </div>
+            @if (registroForm.get('contrasena')?.value !== registroForm.get('confirmarContrasena')?.value && registroForm.get('confirmarContrasena')?.value !== '') {
+              <small style="color: red; display: block; margin-top: 5px; font-weight: bold;">Las contraseñas no son iguales</small>
+            }
+          </div>
+        </div>  
+
+        <button type="submit" 
+                [disabled]="registroForm.invalid" 
+                [style.background-color]="registroForm.invalid ? '#a0aec0' : '#28a745'"
+                [style.cursor]="registroForm.invalid ? 'not-allowed' : 'pointer'"
+                style="width: 100%; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; transition: all 0.3s ease;">
+          Completar Registro
+        </button>
+      </form>
+    </div>
+  </main>
+</div>
