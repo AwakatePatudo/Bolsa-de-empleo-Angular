@@ -1,27 +1,31 @@
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const router = express.Router();
 const mysql = require('mysql2'); 
 const app = express();
-const PORT = 3000;
+
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 app.use(cors({
-origin: 'http://localhost:4200',
-credentials: true,
-methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-allowedHeaders: ['Content-Type', 'Authorization']
+  origin: process.env.CORS_ORIGIN || 'http://localhost:4200',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // ==========================================
 // CONFIGURACION DE LA BASE DE DATOS (POOL)
 // ==========================================
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',      
-    password: '',      
-    database: 'bolsaangular', 
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',      
+    password: process.env.DB_PASSWORD || '',      
+    database: process.env.DB_NAME || 'bolsaangular', 
     multipleStatements: true 
 });
 
